@@ -185,7 +185,7 @@ function Leaves() {
 
                     />
                 </div>
-                <div className="col-span-1" style={{ width: "30%" }}>
+                <div className="col-span-1" >
                     <div style={{ marginBottom: '10px' }}>
                         <Table
                             // heading="Current Leave Application"

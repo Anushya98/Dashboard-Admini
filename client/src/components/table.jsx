@@ -21,16 +21,23 @@ import Calendar from "./calendar-month";
 import CalendarComponent from "./calendar-date";
 import { Button } from "@/components/ui/button";
 import ApplyLeaveForm from "@/modules/hr/LeaveFile/ApplyLeave";
-
+import { Footer } from "@/modules/hr/LeaveFile/components";
 
 const fuzzyFilter = (row, columnId, value) => {
-  // Rank the item
   const itemRank = rankItem(row.getValue(columnId), value);
-  // Return if the item should be filtered in/out
   return itemRank.passed;
 };
 
-export default function DataTable({ columns = [], data = [], heading, inputType, }) {
+export default function DataTable({
+  columns = [],
+  data = [],
+  heading,
+  inputType,
+  showControlHeader = true,
+  footerText = "",
+  footerValues = [],
+  isPayslipPage = false, // Add isPayslipPage prop
+}) {
   const [sorting, setSorting] = useState([]);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -41,27 +48,28 @@ export default function DataTable({ columns = [], data = [], heading, inputType,
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  const applyLeaveButton = inputType === 'search' && (
-    <>
-      <Button
-        variant="primary"
-        className="bg-white text-darkBlue rounded-3xl"
-        onClick={() => setIsOpen(true)}
-      >
-        + Apply Leave
-      </Button>
-      <ApplyLeaveForm isOpen={isOpen} setIsOpen={setIsOpen} />
-    </>
-  );
+  const applyLeaveButton =
+    inputType === "search" && (
+      <>
+        <Button
+          variant="primary"
+          className="bg-white text-darkBlue rounded-3xl"
+          onClick={() => setIsOpen(true)}
+        >
+          + Apply Leave
+        </Button>
+        <ApplyLeaveForm isOpen={isOpen} setIsOpen={setIsOpen} />
+      </>
+    );
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-
   };
 
   const handleMonthChange = (month) => {
     setSelectedMonth(month);
   };
+
   const table = useReactTable({
     data,
     columns,
@@ -71,7 +79,7 @@ export default function DataTable({ columns = [], data = [], heading, inputType,
     onGlobalFilterChange: setGlobalFilter,
     globalFilterFn: "fuzzy",
     filterFns: {
-      fuzzy: fuzzyFilter, //define as a filter function that can be used in column definitions
+      fuzzy: fuzzyFilter,
     },
     onPaginationChange: setPagination,
     getFilteredRowModel: getFilteredRowModel(),
@@ -84,57 +92,45 @@ export default function DataTable({ columns = [], data = [], heading, inputType,
   });
 
   return (
-    <section className="border bg-white rounded-2xl">
-      <div className="flex items-center justify-between py-3 px-[2rem] bg-darkBlue rounded-2xl rounded-b-none">
-        <p className="text-white font-medium">{heading}</p>
-        <div className="flex gap-10">
-          {applyLeaveButton}
-          {inputType === "search" && (
-            <SearchInput value={globalFilter ?? ""} onSearch={(value) => setGlobalFilter(String(value))} />
+    <section className="border bg-white rounded-2xl" style={{ alignSelf: "center", minWidth: "500px" }}>
+      {showControlHeader && (
+        <div className="flex items-center justify-between py-3 px-[2rem] bg-darkBlue rounded-2xl rounded-b-none">
+          <p className="text-white font-medium">{heading}</p>
+          <div className="flex gap-10">
+            {applyLeaveButton}
+            {inputType === "search" && (
+              <SearchInput value={globalFilter ?? ""} onSearch={(value) => setGlobalFilter(String(value))} />
+            )}
+          </div>
+          {inputType === "calendar" && (
+            <CalendarComponent
+              onChange={(selectedDate) => {
+                console.log("Selected date:", selectedDate);
+                selectedDate = { selectedDate };
+              }}
+            />
+          )}
+          {inputType === "month" && (
+            <Calendar selectedMonth={selectedMonth} onMonthChange={handleMonthChange} />
           )}
         </div>
-        {inputType === "calendar" && (
-          <CalendarComponent
-            onChange={(selectedDate) => {
-              console.log("Selected date:", selectedDate);
-              selectedDate = { selectedDate } // Pass selected date value
-              // onDateChange={handleDateChange} // Pass handleDateChange function
-            }}
-          />
-        )}
-        {inputType === "month" && (
-          <Calendar
-            selectedMonth={selectedMonth} // Pass selected month value
-            onMonthChange={handleMonthChange} // Pass handleMonthChange function
-          />
-        )}
-      </div>
+      )}
       <Table className="border-b">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id} className="bg-customBlue">
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id} className="text-darkBlue">
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                  </TableHead>
-                );
-              })}
+            <TableRow key={headerGroup.id} className={isPayslipPage ? "bg-darkBlue" : "bg-customBlue"}>
+              {headerGroup.headers.map((header) => (
+                <TableHead key={header.id} className={isPayslipPage ? "text-white" : "text-darkBlue"}>
+                  {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                </TableHead>
+              ))}
             </TableRow>
           ))}
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
+              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -151,28 +147,33 @@ export default function DataTable({ columns = [], data = [], heading, inputType,
           )}
         </TableBody>
       </Table>
-      <div className="flex items-center justify-end space-x-2 py-2 px-[2rem]">
-        <p className="text-sm">
-          Page {table.getState().pagination.pageIndex + 1} of{" "}
-          {table.getPageCount()}
-        </p>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+      {showControlHeader ? (
+        <div className="flex items-center justify-end space-x-2 py-2 px-[2rem]">
+          <p className="text-sm">
+            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+          </p>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+        </div>
+      ) : (
+        <div className="bg-darkBlue text-white text-center py-2 px-[2rem] rounded-b-2xl">
+          <Footer />
+        </div>
+      )}
     </section>
   );
 }

@@ -8,6 +8,7 @@ import Dashboard from "@/layouts/dashboard";
 import Calendar from "@/modules/leave/Calendar";
 import Leaves from "./modules/hr/LeaveFile/Leaves";
 import Dialog from "@/modules/hr/LeaveFile/ApplyLeave";
+import PayslipFile from "./modules/hr/Payslip/PayslipFile";
 
 const Home = () => <div>helloworld</div>;
 
@@ -25,6 +26,8 @@ function App() {
       <Route path="/hr" element={<Dashboard />}>
         <Route path="/hr/complaints" element={<Complaints />} />
         <Route path="/hr/leave" element={<Leaves />} />
+        <Route path="/hr/payslip" element={<PayslipFile />} />
+        
       </Route>
       <Route path="/trial" element={<Dialog />} />
       {/* <Route path="/trial" element={<Calendar />} /> */}

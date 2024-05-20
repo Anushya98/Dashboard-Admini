@@ -72,6 +72,15 @@ function Sidebar({ children }) {
               >
                 complaints
               </TabsTrigger>
+              <TabsTrigger
+                value="hr/payslip"
+                onClick={() => {
+                  setActivePage("hr/payslip");
+                  navigate("/hr/payslip");
+                }}
+              >
+                Payslip
+              </TabsTrigger>
             </AccordionContent>
           </AccordionItem>
           {/* <AccordionItem value="item-2">

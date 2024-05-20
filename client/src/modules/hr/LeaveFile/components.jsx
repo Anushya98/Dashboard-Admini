@@ -88,6 +88,12 @@ export const Header = () => (
     <h3 className="text-white font-medium">Leave Application</h3>
   </div>
 );
+export const Footer = () => (
+  <div className="flex justify-center bg-darkBlue text-white text-center py-2 px-[2rem] rounded-b-2xl gap-5">
+    <h3 className="text-white font-medium">Net Pay </h3>
+    <h3 className="text-white font-medium">Rs.25000</h3>
+  </div>
+);
 
 export const SelectComponent = ({ field }) => (
   <FormLabelComponent label="Reporting Person">
