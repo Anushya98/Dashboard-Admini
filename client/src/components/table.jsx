@@ -36,7 +36,8 @@ export default function DataTable({
   showControlHeader = true,
   footerText = "",
   footerValues = [],
-  isPayslipPage = false, // Add isPayslipPage prop
+  isPayslipPage = false,
+  isLeavePage = false, // Add isPayslipPage prop
 }) {
   const [sorting, setSorting] = useState([]);
   const [pagination, setPagination] = useState({
@@ -49,11 +50,11 @@ export default function DataTable({
   const [isOpen, setIsOpen] = useState(false);
 
   const applyLeaveButton =
-    inputType === "search" && (
+    inputType === "search" && isLeavePage && ( // Add isLeavePage condition
       <>
         <Button
           variant="primary"
-          className="bg-white text-darkBlue rounded-3xl"
+          className="bg-white text-darkBlue rounded-3xl border border-blue-500"
           onClick={() => setIsOpen(true)}
         >
           + Apply Leave
@@ -61,6 +62,7 @@ export default function DataTable({
         <ApplyLeaveForm isOpen={isOpen} setIsOpen={setIsOpen} />
       </>
     );
+
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -92,7 +94,7 @@ export default function DataTable({
   });
 
   return (
-    <section className="border bg-white rounded-2xl" style={{ alignSelf: "center", minWidth: "500px" }}>
+    <section className="border bg-white rounded-2xl" style={{ alignSelf: "center" }}>
       {showControlHeader && (
         <div className="flex items-center justify-between py-3 px-[2rem] bg-darkBlue rounded-2xl rounded-b-none">
           <p className="text-white font-medium">{heading}</p>

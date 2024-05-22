@@ -34,7 +34,7 @@ function Sidebar({ children }) {
 
   return (
     <Tabs defaultValue={currentUrl} className="flex gap-4 grow">
-      <TabsList className="flex flex-col min-w-[200px] bg-white shadow-lg">
+      <TabsList className="flex flex-col min-w-[240px] bg-white shadow-lg">
         <div className="flex items-center p-4 pb-0">
           <img src={DashboardIcon} alt=" " className="w-4" />
           <TabsTrigger

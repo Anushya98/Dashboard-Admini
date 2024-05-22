@@ -58,7 +58,7 @@ export const CalendarComponent = ({ field, isDateDisabled, label }) => (
           <Button
             variant={"outline"}
             className={cn(
-              "justify-start text-left font-normal min-w-[15rem]",
+              "justify-start text-left font-normal min-w-[10rem]",
               !field.value && "text-muted-foreground"
             )}
           >
@@ -107,6 +107,45 @@ export const SelectComponent = ({ field }) => (
         <SelectItem value="m@example.com">m@example.com</SelectItem>
         <SelectItem value="m@google.com">m@google.com</SelectItem>
         <SelectItem value="m@support.com">m@support.com</SelectItem>
+      </SelectContent>
+    </Select>
+  </FormLabelComponent>
+);
+
+export const SelectBloodGroups = ({ field }) => (
+  <FormLabelComponent label="Select Blood Group">
+    <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <FormControl>
+        <SelectTrigger className="min-w-[10rem]">
+          <SelectValue placeholder="Select Blood group" />
+        </SelectTrigger>
+      </FormControl>
+      <SelectContent>
+      <SelectItem value="O+">O positive</SelectItem>
+        <SelectItem value="B+">B positive</SelectItem>
+        <SelectItem value="A+">A positive</SelectItem>
+        <SelectItem value="AB+">AB positive</SelectItem>
+        <SelectItem value="O-">O negative</SelectItem>
+        <SelectItem value="B-">B negative</SelectItem>
+        <SelectItem value="A-">A negative</SelectItem>
+        <SelectItem value="AB-">AB negative</SelectItem>
+      </SelectContent>
+    </Select>
+  </FormLabelComponent>
+);
+export const SelectQualification = ({ field }) => (
+  <FormLabelComponent label="Qualification"className="min-w-[5rem]">
+    <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <FormControl>
+        <SelectTrigger className="min-w-[10rem]">
+          <SelectValue placeholder="Select Qualification" />
+        </SelectTrigger>
+      </FormControl>
+      <SelectContent>
+      <SelectItem value="Graduate">Graduate</SelectItem>
+        <SelectItem value="UG">Under Graduate</SelectItem>
+        <SelectItem value="PG">Post Graduate</SelectItem>
+       
       </SelectContent>
     </Select>
   </FormLabelComponent>

@@ -1,12 +1,12 @@
 import { commonAPI } from "@/lib/services";
 import { useEffect, useState } from "react";
-import { formatDate } from "@/lib/utils";
-import CurvedCard from "@/components/curved-card";
+
 import Table from "@/components/table";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import LeaveStatus from "./LeaveStatus";
+import ApproveForm from "./ApprovedForm";
+import DetailForm from "./DetailForm";
 
 const columns = [
     {
@@ -84,7 +84,7 @@ const columns = [
                     >
                         View
                     </Button>
-                    <LeaveStatus
+                    <ApproveForm
                         isOpen={isOpen}
                         setIsOpen={setIsOpen}
                         rowData={row.original}
@@ -98,43 +98,40 @@ const columns = [
 const columns1 = [
     {
         accessorKey: "name",
-        header: "Leave status",
+        header: "Employee Name",
     },
     {
-        accessorKey: "name",
-        header: " ",
+        accessorKey: "complaint_id",
+        header: "Employee Id ",
     },
     {
-        accessorKey: "name",
-        header: " ",
-    },
-    {
-        accessorKey: "name",
-        header: "On Leave",
+        accessorKey: "department",
+        header: "Personal Information ",
+        cell: ({ row }) => {
+            const [isOpen, setIsOpen] = useState(false);
+
+            return (
+                <>
+                    <Button
+                        variant="primary"
+                        className="bg-white text-darkBlue rounded-3xl border border-darkBlue hover:bg-darkBlue hover:text-white "
+                        onClick={() => setIsOpen(true)}
+                    >
+                        View
+                    </Button>
+                    <ApproveForm
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                        rowData={row.original}
+                    />
+                </>
+            );
+        },
     },
 ]
 
-const columns2 = [
-    {
-        accessorKey: "name",
-        header: "Important Days",
-    },
-    {
-        accessorKey: "name",
-        header: " ",
-    },
-    {
-        accessorKey: "name",
-        header: " ",
-    },
-    {
-        accessorKey: "name",
-        header: " ",
-    },
-]
-function Leaves() {
+function ApprovedStatus() {
     const [leavesData, setLeavesData] = useState([]);
-    const [isLeavePage, setIsLeavePage] = useState(true);
 
     useEffect(() => {
         const fetchLeaves = async () => {
@@ -153,55 +150,20 @@ function Leaves() {
     }, []);
 
     return (
-        <section className="flex flex-col gap-4 px-2">
-            <div className="flex w-full justify-between gap-2">
-                <CurvedCard
-                    title="ANUAL LEAVES"
-                    count={leavesData.total_employees}
-                    isLeavesPage={true}
-                />
-                <CurvedCard
-                    title="SICK LEAVES"
-                    count={leavesData.total_complaints_count}
-                    isLeavesPage={true}
-                />
-                <CurvedCard
-                    title="MARRIAGE LEAVES"
-                    count={leavesData.solved_complaints_count}
-                    isLeavesPage={true}
-                />
-                <CurvedCard
-                    title="OTHER LEAVES"
-                    count={leavesData.pending_complaints_count}
-                    isLeavesPage={true}
-                />
-            </div>
-            <div className="flex justify-between" style={{ gap: '10px' }}>
-                <div style={{ width: "70%" }}>
-                    <Table
-                        heading="Current Leave Application"
-                        columns={columns}
-                        data={leavesData.hr_complaints}
-                        inputType="search"
-                        isLeavePage={isLeavePage} 
+        <section className="flex flex-col gap-2 px-2">
 
-                    />
+            <div className="flex justify-evenly gap-0 pt-3" >
+                <div style={{ width: "60%" }}>
+                    <DetailForm />
                 </div>
                 <div className="col-span-1" >
                     <div style={{ marginBottom: '10px' }}>
                         <Table
-                            // heading="Current Leave Application"
+                            heading="Personal information"
                             columns={columns1}
                             data={leavesData.hr_complaints}
-                            inputType="calendar"
-                        />
-                    </div>
-                    <div>
-                        <Table
-                            // heading="Current Leave Application"
-                            columns={columns2}
-                            data={leavesData.hr_complaints}
-                            inputType="month"
+                            inputType="search"
+
                         />
                     </div>
                 </div>
@@ -210,4 +172,4 @@ function Leaves() {
     );
 }
 
-export default Leaves;
+export default ApprovedStatus;
