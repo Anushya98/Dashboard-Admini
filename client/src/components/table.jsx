@@ -22,6 +22,11 @@ import CalendarComponent from "./calendar-date";
 import { Button } from "@/components/ui/button";
 import ApplyLeaveForm from "@/modules/hr/LeaveFile/ApplyLeave";
 import { Footer } from "@/modules/hr/LeaveFile/components";
+import CreateNewRequestButton from "@/components/new-request-btn.jsx";
+import CsvButtons from "@/components/CSV-btn.jsx";
+import CreateNewUserButton from "@/components/new-user-btn.jsx";
+import CreateNewTaskButton from "./new-task-task";
+import CreateTask from "@/modules/admin/Tasks/CreateTask";
 
 const fuzzyFilter = (row, columnId, value) => {
   const itemRank = rankItem(row.getValue(columnId), value);
@@ -37,12 +42,16 @@ export default function DataTable({
   footerText = "",
   footerValues = [],
   isPayslipPage = false,
-  isLeavePage = false, // Add isPayslipPage prop
+  isLeavePage = false,
+  isNewRequestPage = false,
+  isCsvPage = false,
+  isNewUserPage = false,
+  isNewTaskPage = false,
 }) {
   const [sorting, setSorting] = useState([]);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 5,
   });
   const [globalFilter, setGlobalFilter] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
@@ -50,7 +59,7 @@ export default function DataTable({
   const [isOpen, setIsOpen] = useState(false);
 
   const applyLeaveButton =
-    inputType === "search" && isLeavePage && ( // Add isLeavePage condition
+    inputType === "search" && isLeavePage && (
       <>
         <Button
           variant="primary"
@@ -63,6 +72,30 @@ export default function DataTable({
       </>
     );
 
+  const createNewRequestButton =
+    inputType === "search" && isNewRequestPage && (
+      <CreateNewRequestButton onClick={() => console.log("Create New Request Clicked")} />
+    );
+  const createNewTaskButton =
+    inputType === "search" && isNewTaskPage && (
+      <>
+        <CreateNewTaskButton onClick={() => setIsOpen(true)}/>
+        <CreateTask isOpen={isOpen} setIsOpen={setIsOpen} />
+      </>
+    );
+
+  const csvButtons =
+    isCsvPage && (
+      <CsvButtons
+        onTemplateClick={() => console.log("CSV Template Clicked")}
+        onUploadClick={() => console.log("CSV Upload Clicked")}
+      />
+    );
+
+  const createNewUserButton =
+    isNewUserPage && (
+      <CreateNewUserButton onClick={() => console.log("Create New User Clicked")} />
+    );
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -100,6 +133,10 @@ export default function DataTable({
           <p className="text-white font-medium">{heading}</p>
           <div className="flex gap-10">
             {applyLeaveButton}
+            {createNewRequestButton}
+            {csvButtons}
+            {createNewUserButton}
+            {createNewTaskButton}
             {inputType === "search" && (
               <SearchInput value={globalFilter ?? ""} onSearch={(value) => setGlobalFilter(String(value))} />
             )}

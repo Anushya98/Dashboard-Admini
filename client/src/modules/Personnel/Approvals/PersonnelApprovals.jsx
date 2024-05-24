@@ -132,6 +132,8 @@ const columns1 = [
 
 function ApprovedStatus() {
     const [leavesData, setLeavesData] = useState([]);
+    const [isCsvPage, setisCsvPage] = useState(true);
+    const [isNewUserPage, setisNewUserPage] = useState(true);
 
     useEffect(() => {
         const fetchLeaves = async () => {
@@ -154,7 +156,10 @@ function ApprovedStatus() {
 
             <div className="flex justify-evenly gap-0 pt-3" >
                 <div style={{ width: "60%" }}>
-                    <DetailForm />
+                    <DetailForm
+                        isCsvPage={isCsvPage}
+                        isNewUserPage={isNewUserPage}
+                    />
                 </div>
                 <div className="col-span-1" >
                     <div style={{ marginBottom: '10px' }}>

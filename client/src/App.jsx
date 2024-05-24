@@ -11,6 +11,10 @@ import Dialog from "@/modules/hr/LeaveFile/ApplyLeave";
 import PayslipFile from "./modules/hr/Payslip/PayslipFile";
 import ApprovedStatus from "./modules/Personnel/Approvals/PersonnelApprovals";
 import Pdfme from "./PdfGenerator/generation";
+import ReminderPage from "./modules/admin/AdminReminder/Reminder";
+import DepartmentApprovalPage from "./modules/admin/AdminApproval/ApprovalForm";
+import TaskDetails from "./modules/admin/Tasks/TaskDetails";
+import WelfarePage from "./modules/hr/Welfare/WelfarePage";
 const Home = () => <div>helloworld</div>;
 
 // const Layout = () => {
@@ -28,14 +32,20 @@ function App() {
         <Route path="/hr/complaints" element={<Complaints />} />
         <Route path="/hr/leave" element={<Leaves />} />
         <Route path="/hr/payslip" element={<PayslipFile />} />
- 
-        
-        
+        <Route path="/hr/welfare" element={<WelfarePage />} />
+
       </Route>
       <Route path="/personnel" element={<Dashboard />}>
-        <Route path="/personnel/approved" element={<ApprovedStatus/>} />
+        <Route path="/personnel/approved" element={<ApprovedStatus />} />
         {/* <Route path="/personnel/mail" element={<Leaves />} /> */}
-        
+
+      </Route>
+      <Route path="/admin" element={<Dashboard />}>
+        <Route path="/admin/d-approval" element={<DepartmentApprovalPage />} />
+        <Route path="/admin/reminder" element={<ReminderPage />} />
+        <Route path="/admin/tasks" element={<TaskDetails/>} />
+        {/* <Route path="/personnel/mail" element={<Leaves />} /> */}
+
       </Route>
       <Route path="/trial" element={<Pdfme />} />
       {/* <Route path="/trial" element={<Calendar />} /> */}

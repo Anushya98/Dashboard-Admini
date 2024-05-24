@@ -10,7 +10,7 @@ function SearchInput({ inputValue = "", onSearch }) {
     onSearch(searchValue);
   };
   return (
-    <div className="relative w-[15rem]">
+    <div className="relative w-[10rem]">
       <Input
         onChange={handleChange}
         value={value}

@@ -19,9 +19,12 @@ import {
 } from "@/modules/hr/LeaveFile/components.jsx";
 import { useState } from "react";
 import PreviewForm from "./Preview";
+import CsvButtons from "@/components/CSV-btn";
+import CreateNewUserButton from "@/components/new-user-btn";
 
-export default function DetailForm() {
+export default function DetailForm({ isCsvPage, isNewUserPage }) {
     const [isOpen, setIsOpen] = useState(false);
+
     const isDateDisabledF = (date) => {
         const today = new Date();
         today.setHours(0, 0, 0, 0); // Set the time to the beginning of today
@@ -67,10 +70,27 @@ export default function DetailForm() {
     const handleFileUpload = (files) => {
         setSelectedFile(files[0]);
     };
+
+    const csvButtons = isCsvPage && (
+        <CsvButtons
+            onTemplateClick={() => console.log("CSV Template Clicked")}
+            onUploadClick={() => console.log("CSV Upload Clicked")}
+        />
+    );
+
+    const createNewUserButton = isNewUserPage && (
+        <CreateNewUserButton onClick={() => console.log("Create New User Clicked")} />
+    );
+
+
     return (
         <section className="border bg-white rounded-2xl" style={{ alignSelf: "center" }}>
-            <div className="p-4 bg-darkBlue rounded-2xl rounded-b-none ">
+            <div className="p-4 bg-darkBlue rounded-2xl rounded-b-none flex justify-between items-center">
                 <h3 className="text-white font-medium">Add Detail</h3>
+                <div className="flex gap-10">
+                    {csvButtons}
+                    {createNewUserButton}
+                </div>
             </div>
             <Form onSubmit={handleSubmit} form={form} className="flex flex-col gap-4">
                 <div className="flex justify-between gap-8">

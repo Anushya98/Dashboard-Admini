@@ -121,7 +121,7 @@ export const SelectBloodGroups = ({ field }) => (
         </SelectTrigger>
       </FormControl>
       <SelectContent>
-      <SelectItem value="O+">O positive</SelectItem>
+        <SelectItem value="O+">O positive</SelectItem>
         <SelectItem value="B+">B positive</SelectItem>
         <SelectItem value="A+">A positive</SelectItem>
         <SelectItem value="AB+">AB positive</SelectItem>
@@ -134,7 +134,7 @@ export const SelectBloodGroups = ({ field }) => (
   </FormLabelComponent>
 );
 export const SelectQualification = ({ field }) => (
-  <FormLabelComponent label="Qualification"className="min-w-[5rem]">
+  <FormLabelComponent label="Qualification" className="min-w-[5rem]">
     <Select onValueChange={field.onChange} defaultValue={field.value}>
       <FormControl>
         <SelectTrigger className="min-w-[10rem]">
@@ -142,10 +142,27 @@ export const SelectQualification = ({ field }) => (
         </SelectTrigger>
       </FormControl>
       <SelectContent>
-      <SelectItem value="Graduate">Graduate</SelectItem>
+        <SelectItem value="Graduate">Graduate</SelectItem>
         <SelectItem value="UG">Under Graduate</SelectItem>
         <SelectItem value="PG">Post Graduate</SelectItem>
-       
+
+      </SelectContent>
+    </Select>
+  </FormLabelComponent>
+);
+export const SelectReminder = ({ field }) => (
+  <FormLabelComponent label="Reminder Type" className="min-w-[5rem]">
+    <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <FormControl>
+        <SelectTrigger className="min-w-[10rem]">
+          <SelectValue placeholder="Select Type" />
+        </SelectTrigger>
+      </FormControl>
+      <SelectContent>
+        <SelectItem value="Whatsapp">WhatsApp</SelectItem>
+        <SelectItem value="Call">Call</SelectItem>
+        <SelectItem value="Whatsapp & Call">WhatsApp And Call</SelectItem>
+
       </SelectContent>
     </Select>
   </FormLabelComponent>
