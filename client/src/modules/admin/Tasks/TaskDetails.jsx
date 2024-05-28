@@ -99,7 +99,7 @@ function TaskDetails() {
                 };
 
                 return (
-                    <div className="flex ">
+                    <div className="flex justify-center">
                         <Button variant="ghost" className="px-2 ">
                             <img src={NotificationIcon} alt="notification" className="w-4" />
                         </Button>

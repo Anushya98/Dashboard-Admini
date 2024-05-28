@@ -3,9 +3,7 @@ import { useEffect, useState } from "react";
 
 import Table from "@/components/table";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, Bell, Expand, X } from "lucide-react"; // Import icons from lucide-react
 import { Badge } from "@/components/ui/badge";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"; // Import Popover components
 import CancelIcon from "@/assets/icons/cancel.svg"
 import NotificationIcon from "@/assets/icons/Notification.svg"
 import ExpandIcon from "@/assets/icons/Expanding.svg"
@@ -77,7 +75,7 @@ const columns = [
             };
 
             return (
-                <div className="flex ">
+                <div className="flex justify-center">
                     <Button variant="ghost" className="px-2 ">
                         <img src={NotificationIcon} alt="notification" className="w-4" />
                     </Button>
@@ -91,7 +89,7 @@ const columns = [
                     <ReminderExpandForm
                         isOpen={isOpen}
                         setIsOpen={setIsOpen}
-                        rowData={row.original} // Pass the row data here
+                        rowData={row.original} 
                     />
                     <Button variant="ghost" onClick={handleDelete} className="px-2 ">
                         <img src={CancelIcon} alt="cancel" className="w-4" />

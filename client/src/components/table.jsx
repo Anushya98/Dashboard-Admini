@@ -27,6 +27,7 @@ import CsvButtons from "@/components/CSV-btn.jsx";
 import CreateNewUserButton from "@/components/new-user-btn.jsx";
 import CreateNewTaskButton from "./new-task-task";
 import CreateTask from "@/modules/admin/Tasks/CreateTask";
+import CreateQuiz from "@/modules/Training/Quizzes/CreateNewQuiz";
 
 const fuzzyFilter = (row, columnId, value) => {
   const itemRank = rankItem(row.getValue(columnId), value);
@@ -47,6 +48,7 @@ export default function DataTable({
   isCsvPage = false,
   isNewUserPage = false,
   isNewTaskPage = false,
+  isCreateNewQuiz = false,
 }) {
   const [sorting, setSorting] = useState([]);
   const [pagination, setPagination] = useState({
@@ -79,7 +81,7 @@ export default function DataTable({
   const createNewTaskButton =
     inputType === "search" && isNewTaskPage && (
       <>
-        <CreateNewTaskButton onClick={() => setIsOpen(true)}/>
+        <CreateNewTaskButton onClick={() => setIsOpen(true)} />
         <CreateTask isOpen={isOpen} setIsOpen={setIsOpen} />
       </>
     );
@@ -96,7 +98,19 @@ export default function DataTable({
     isNewUserPage && (
       <CreateNewUserButton onClick={() => console.log("Create New User Clicked")} />
     );
-
+  const CreateNewQuiz =
+    isCreateNewQuiz && (
+      <>
+        <Button
+          variant="primary"
+          className="bg-white text-darkBlue rounded-3xl border border-blue-500"
+          onClick={() => setIsOpen(true)}
+        >
+          + Create Quiz
+        </Button>
+        <CreateQuiz isOpen={isOpen} setIsOpen={setIsOpen} />
+      </>
+    );
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -137,6 +151,7 @@ export default function DataTable({
             {csvButtons}
             {createNewUserButton}
             {createNewTaskButton}
+            {CreateNewQuiz}
             {inputType === "search" && (
               <SearchInput value={globalFilter ?? ""} onSearch={(value) => setGlobalFilter(String(value))} />
             )}

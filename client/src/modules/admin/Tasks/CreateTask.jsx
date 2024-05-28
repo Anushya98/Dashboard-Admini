@@ -54,6 +54,9 @@ export default function CreateTask({ isOpen, setIsOpen }) {
         console.log(updatedData);
     };
 
+    const {formState } = useForm({ mode: "onChange" });
+
+
     const [selectedFile, setSelectedFile] = useState(null);
 
     const handleFileUpload = (files) => {
@@ -72,7 +75,9 @@ export default function CreateTask({ isOpen, setIsOpen }) {
                 onInteractOutside={(e) => e.preventDefault()}
                 onOpenAutoFocus={(e) => e.preventDefault()}
             >
-                <Header />
+               <div className="p-4 bg-darkBlue rounded-md rounded-b-none">
+                    <h3 className="text-white font-medium">Create New Task</h3>
+                </div>
                 <Form
                     onSubmit={handleSubmit}
                     form={form}
@@ -279,16 +284,11 @@ export default function CreateTask({ isOpen, setIsOpen }) {
                             )}
                         />
                     </div>
-                    <div className="flex justify-center gap-8 p-4">
-                        <Button type="submit" className="bg-blue-700 hover:bg-blue-600">
+                    <div className="flex justify-center gap-8 mt-4">
+                        <Button type="submit" className="bg-darkBlue text-white hover:bg-transparent hover:border-darkBlue hover:text-darkBlue rounded-3xl" variant="outline" disabled={!formState.isValid}>
                             Send Task
                         </Button>
-                        <Button
-                            type="button"
-                            className="border-blue-700 text-blue-700"
-                            variant="outline"
-                            onClick={() => setIsOpen(false)}
-                        >
+                        <Button type="button" className="border-darkBlue text-darkBlue hover:bg-darkBlue hover:text-white rounded-3xl" variant="outline" onClick={() => setIsOpen(false)}>
                             Cancel
                         </Button>
                     </div>

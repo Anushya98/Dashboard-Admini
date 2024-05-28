@@ -3,13 +3,10 @@ import { useEffect, useState } from "react";
 
 import Table from "@/components/table";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, Bell, Expand, X } from "lucide-react"; // Import icons from lucide-react
 import { Badge } from "@/components/ui/badge";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"; // Import Popover components
 import CancelIcon from "@/assets/icons/cancel.svg"
 import NotificationIcon from "@/assets/icons/Notification.svg"
 import ExpandIcon from "@/assets/icons/Expanding.svg"
-// import ReminderExpandForm from "./Expanding";
 import ApprovalExpandForm from "./ApprovalExpand";
 import ApprovalForm from "./CreateNewRequest";
 
@@ -102,14 +99,14 @@ function DepartmentApprovalPage() {
                 };
 
                 return (
-                    <div className="flex ">
+                    <div className="flex justify-center">
                         <Button variant="ghost" className="px-2 ">
                             <img src={NotificationIcon} alt="notification" className="w-4" />
                         </Button>
                         <Button
                             variant="ghost"
                             className="px-2 "
-                            onClick={() => setSelectedRowData(row.original)} // Set the selected row data
+                            onClick={() => setSelectedRowData(row.original)}
                         >
                             <img src={ExpandIcon} alt="expand" className="w-4" />
                         </Button>

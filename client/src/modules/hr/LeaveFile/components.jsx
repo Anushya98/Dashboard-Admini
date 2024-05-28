@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import React from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { FormControl, FormItem, FormLabel } from "@/components/ui/form";
 import {
@@ -21,6 +22,12 @@ import {
 export const FormLabelComponent = ({ label, children }) => (
   <div className="flex items-center">
     <FormLabel className="min-w-[10rem]">{label}</FormLabel>
+    {children}
+  </div>
+);
+export const ImageComponent = ({ label, children }) => (
+  <div className="flex flex-col items-center">
+    <FormImage className="min-w-[10rem]">{label}</FormImage>
     {children}
   </div>
 );
@@ -84,7 +91,7 @@ export const CalendarComponent = ({ field, isDateDisabled, label }) => (
 );
 
 export const Header = () => (
-  <div className="p-4 bg-blue-700 rounded-lg rounded-b-none ">
+  <div className="p-4 bg-darkBlue rounded-lg rounded-b-none ">
     <h3 className="text-white font-medium">Leave Application</h3>
   </div>
 );
@@ -95,11 +102,12 @@ export const Footer = () => (
   </div>
 );
 
-export const SelectComponent = ({ field }) => (
-  <FormLabelComponent label="Reporting Person">
+export const SelectComponent = ({ field, showLabel = true }) => (
+  <React.Fragment>
+    {showLabel && <FormLabelComponent label="Reporting Person" />}
     <Select onValueChange={field.onChange} defaultValue={field.value}>
       <FormControl>
-        <SelectTrigger className="min-w-[15rem]">
+        <SelectTrigger className="min-w-[5rem]">
           <SelectValue placeholder="Select an email" />
         </SelectTrigger>
       </FormControl>
@@ -109,8 +117,9 @@ export const SelectComponent = ({ field }) => (
         <SelectItem value="m@support.com">m@support.com</SelectItem>
       </SelectContent>
     </Select>
-  </FormLabelComponent>
+  </React.Fragment>
 );
+
 
 export const SelectBloodGroups = ({ field }) => (
   <FormLabelComponent label="Select Blood Group">
@@ -166,4 +175,45 @@ export const SelectReminder = ({ field }) => (
       </SelectContent>
     </Select>
   </FormLabelComponent>
+);
+
+export const SelectWorkType = ({ field }) => (
+  <FormLabelComponent label="Type Of Work" className="min-w-[5rem]">
+    <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <FormControl>
+        <SelectTrigger className="min-w-[10rem]">
+          <SelectValue placeholder="Select Type" />
+        </SelectTrigger>
+      </FormControl>
+      <SelectContent>
+        <SelectItem value="full-time">Full Time</SelectItem>
+        <SelectItem value="part-time">Part Time</SelectItem>
+      </SelectContent>
+    </Select>
+  </FormLabelComponent>
+);
+
+export const SelectLevel = ({ field, showLabel = true, options }) => (
+  <React.Fragment>
+    {showLabel && <FormLabelComponent label=" " />}
+    <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <FormControl>
+        <SelectTrigger className="min-w-[5rem]">
+          <SelectValue placeholder="Select an option" />
+        </SelectTrigger>
+      </FormControl>
+      <SelectContent>
+        {options.map((option, index) => (
+          <SelectItem key={index} value={option.value} className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              checked={field.value === option.value}
+              onChange={() => field.onChange(option.value)}
+            />
+            <span>{option.label}</span>
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  </React.Fragment>
 );

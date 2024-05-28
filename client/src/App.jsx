@@ -15,6 +15,8 @@ import ReminderPage from "./modules/admin/AdminReminder/Reminder";
 import DepartmentApprovalPage from "./modules/admin/AdminApproval/ApprovalForm";
 import TaskDetails from "./modules/admin/Tasks/TaskDetails";
 import WelfarePage from "./modules/hr/Welfare/WelfarePage";
+import DocumentPage from "./modules/Training/Document/TrainingDocuments";
+import QuizPage from "./modules/Training/Quizzes/QuizTab";
 const Home = () => <div>helloworld</div>;
 
 // const Layout = () => {
@@ -43,13 +45,16 @@ function App() {
       <Route path="/admin" element={<Dashboard />}>
         <Route path="/admin/d-approval" element={<DepartmentApprovalPage />} />
         <Route path="/admin/reminder" element={<ReminderPage />} />
-        <Route path="/admin/tasks" element={<TaskDetails/>} />
-        {/* <Route path="/personnel/mail" element={<Leaves />} /> */}
+        <Route path="/admin/tasks" element={<TaskDetails />} />
+
+      </Route>
+      <Route path="/training" element={<Dashboard />}>
+        <Route path="/training/documents" element={<DocumentPage />} />
+        <Route path="/training/quiz" element={<QuizPage />} />
+
 
       </Route>
       <Route path="/trial" element={<Pdfme />} />
-      {/* <Route path="/trial" element={<Calendar />} /> */}
-      {/* <Route path="/trial1" element={<Layout />} /> */}
     </Routes>
   );
 }

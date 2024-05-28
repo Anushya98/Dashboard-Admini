@@ -71,7 +71,7 @@ const columns = [
             };
 
             return (
-                <div className="flex ">
+                <div className="flex justify-center">
                     <>
                         <Button
                             variant="primary"

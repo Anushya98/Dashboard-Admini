@@ -1,33 +1,28 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useForm } from "react-hook-form";
-import { FormControl, FormItem, FormField } from "@/components/ui/form";
-import { RadioGroup } from "@/components/ui/radio-group";
+import { FormItem, FormField } from "@/components/ui/form";
 import { FormComponent as Form } from "@/components/form";
 import { hyphenDate } from "@/lib/date-format";
 import { Textarea } from "@/components/ui/textarea";
 import {
-    CalendarComponent,
     FormLabelComponent,
-    RadioComponent,
     SelectReminder,
 } from "@/modules/hr/LeaveFile/components.jsx";
 import { useState } from "react";
-import ImageIcon from "@/assets/icons/image.svg"
 
 export default function ApprovalForm() {
     const [isOpen, setIsOpen] = useState(false);
     const isDateDisabledF = (date) => {
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // Set the time to the beginning of today
-        date.setHours(0, 0, 0, 0); // Set the time of the date being checked to the beginning of the day
-        return date < today; // Disable dates before today
+        today.setHours(0, 0, 0, 0);
+        date.setHours(0, 0, 0, 0);
+        return date < today;
     };
     const isDateDisabledL = (date) => {
-        if (!fDate) return true; // Disable all dates if fDate is not set
+        if (!fDate) return true;
         date.setHours(0, 0, 0, 0);
-        return date < fDate; // Disable dates before the selected fDate
+        return date < fDate;
     };
     const defaultValues = {
         request_id: "",
@@ -74,34 +69,6 @@ export default function ApprovalForm() {
                         <FormItem>
                             <FormLabelComponent label="Request ID">
                                 <Input value="12345" readOnly />
-                            </FormLabelComponent>
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="date"
-                    rules={{
-                        required: { value: true, message: "This is required*" },
-                    }}
-                    render={({ field }) => (
-                        <FormItem>
-                            <CalendarComponent field={field} label="Date" />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="created_by"
-                    rules={{
-                        required: { value: true, message: "This is required*" },
-                    }}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabelComponent label="Created By">
-                                <div >
-                                    <Input {...field} placeholder="Enter Name Here" />
-                                </div>
                             </FormLabelComponent>
                         </FormItem>
                     )}

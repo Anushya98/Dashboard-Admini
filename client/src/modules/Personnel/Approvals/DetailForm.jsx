@@ -16,6 +16,7 @@ import {
     Header,
     LeaveTypeRadio,
     RadioComponent,
+    SelectWorkType,
 } from "@/modules/hr/LeaveFile/components.jsx";
 import { useState } from "react";
 import PreviewForm from "./Preview";
@@ -45,11 +46,11 @@ export default function DetailForm({ isCsvPage, isNewUserPage }) {
         employee_id: "",
         department: "",
         designation: "",
-        add_photo:"",
-        date_of_joining:"",
-        blood_group:"",
-        qualification:"",
-        personal_email:"",
+        add_photo: "",
+        date_of_joining: "",
+        blood_group: "",
+        qualification: "",
+        personal_email: "",
 
     };
 
@@ -227,7 +228,7 @@ export default function DetailForm({ isCsvPage, isNewUserPage }) {
                     />
                 </div>
                 <div className="flex justify-between gap-8">
-                    <FormField
+                    {/* <FormField
                         control={form.control}
                         name="add_photo"
                         rules={{
@@ -251,7 +252,7 @@ export default function DetailForm({ isCsvPage, isNewUserPage }) {
                                 </FormLabelComponent>
                             </FormItem>
                         )}
-                    />
+                    /> */}
 
                     <FormField
                         control={form.control}
@@ -265,9 +266,7 @@ export default function DetailForm({ isCsvPage, isNewUserPage }) {
                             </FormItem>
                         )}
                     />
-                </div>
 
-                <div className="flex justify-between gap-8">
                     <FormField
                         control={form.control}
                         name="blood_group"
@@ -280,6 +279,9 @@ export default function DetailForm({ isCsvPage, isNewUserPage }) {
                             </FormItem>
                         )}
                     />
+                </div>
+
+                <div className="flex justify-between gap-8">
                     <FormField
                         control={form.control}
                         name="qualification"
@@ -292,8 +294,7 @@ export default function DetailForm({ isCsvPage, isNewUserPage }) {
                             </FormItem>
                         )}
                     />
-                </div>
-                <div className="flex justify-between gap-8">
+
 
                     <FormField
                         control={form.control}
@@ -310,7 +311,20 @@ export default function DetailForm({ isCsvPage, isNewUserPage }) {
                         )}
                     />
                 </div>
-
+                <div className="flex justify-between gap-8">
+                    <FormField
+                        control={form.control}
+                        name="Work_type"
+                        rules={{
+                            required: { value: true, message: "This is required*" },
+                        }}
+                        render={({ field }) => (
+                            <FormItem>
+                                <SelectWorkType field={field} />
+                            </FormItem>
+                        )}
+                    />
+                </div>
             </Form>
             <div className="flex justify-center bg-darkBlue text-white text-center py-2 px-[2rem] rounded-b-2xl gap-5">
 
