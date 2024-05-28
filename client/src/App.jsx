@@ -17,6 +17,7 @@ import TaskDetails from "./modules/admin/Tasks/TaskDetails";
 import WelfarePage from "./modules/hr/Welfare/WelfarePage";
 import DocumentPage from "./modules/Training/Document/TrainingDocuments";
 import QuizPage from "./modules/Training/Quizzes/QuizTab";
+import HrDasboard from "./modules/hr/Dashboard/HrDashboard";
 const Home = () => <div>helloworld</div>;
 
 // const Layout = () => {
@@ -31,6 +32,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/org-register" element={<OrgReg />} />
       <Route path="/hr" element={<Dashboard />}>
+        <Route path="/hr/dashboard" element={<HrDasboard />} />
         <Route path="/hr/complaints" element={<Complaints />} />
         <Route path="/hr/leave" element={<Leaves />} />
         <Route path="/hr/payslip" element={<PayslipFile />} />
@@ -51,8 +53,6 @@ function App() {
       <Route path="/training" element={<Dashboard />}>
         <Route path="/training/documents" element={<DocumentPage />} />
         <Route path="/training/quiz" element={<QuizPage />} />
-
-
       </Route>
       <Route path="/trial" element={<Pdfme />} />
     </Routes>

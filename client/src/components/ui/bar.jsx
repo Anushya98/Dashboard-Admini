@@ -29,16 +29,16 @@ const options = {
       {
         label: "Steps",
         data: [3000, 5000, 4500, 2800, 8000, 6000, 7000],
-        borderColor: "red",
+        borderColor: "#26408c",
         borderWidth: 1,
-        backgroundColor: "pink",
+        backgroundColor: "#5b7fe9",
       },
       {
         label: "Steps",
         data: [4000, 7000, 3500, 8880, 3000, 2000, 5000],
-        borderColor: "green",
+        borderColor: "#5b7fe9",
         borderWidth: 1,
-        backgroundColor: "lightgreen",
+        backgroundColor: "#26408c",
       },
     ],
   };
