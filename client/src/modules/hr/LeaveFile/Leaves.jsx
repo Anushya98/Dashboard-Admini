@@ -7,6 +7,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import LeaveStatus from "./LeaveStatus";
+import AnnualLeaveIcon from "@/assets/icons/AnnualLeave.svg";
+import SickLeaveIcon from "@/assets/icons/sickleave.svg";
+import MarriageLeaveIcon from "@/assets/icons/marriageleave.svg";
+import OtherLeaveIcon from "@/assets/icons/otherleave.svg";
 
 const columns = [
     {
@@ -159,21 +163,25 @@ function Leaves() {
                     title="ANUAL LEAVES"
                     count={leavesData.total_employees}
                     isLeavesPage={true}
+                    icon={AnnualLeaveIcon}
                 />
                 <CurvedCard
                     title="SICK LEAVES"
                     count={leavesData.total_complaints_count}
                     isLeavesPage={true}
+                    icon={SickLeaveIcon}
                 />
                 <CurvedCard
                     title="MARRIAGE LEAVES"
                     count={leavesData.solved_complaints_count}
                     isLeavesPage={true}
+                    icon={MarriageLeaveIcon}
                 />
                 <CurvedCard
                     title="OTHER LEAVES"
                     count={leavesData.pending_complaints_count}
                     isLeavesPage={true}
+                    icon={OtherLeaveIcon}
                 />
             </div>
             <div className="flex justify-between" style={{ gap: '10px' }}>
@@ -183,7 +191,7 @@ function Leaves() {
                         columns={columns}
                         data={leavesData.hr_complaints}
                         inputType="search"
-                        isLeavePage={isLeavePage} 
+                        isLeavePage={isLeavePage}
 
                     />
                 </div>

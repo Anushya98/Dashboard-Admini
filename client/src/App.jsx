@@ -18,6 +18,12 @@ import WelfarePage from "./modules/hr/Welfare/WelfarePage";
 import DocumentPage from "./modules/Training/Document/TrainingDocuments";
 import QuizPage from "./modules/Training/Quizzes/QuizTab";
 import HrDasboard from "./modules/hr/Dashboard/HrDashboard";
+import MailFormats from "./modules/Documents/MailFormat";
+import LeadComplaints from "./modules/Lead/complaint/Leadcomplaint";
+import LeadSuggestion from "./modules/Lead/Suggestion/LeadSuggesstion";
+import LeadFeedback from "./modules/Lead/Feedbacks/LeadFeedback";
+import ReportsModelPage from "./modules/Reports/Models/ReportingModel";
+import SalesLeadPage from "./modules/Sales/Leads/ActiveLeads";
 const Home = () => <div>helloworld</div>;
 
 // const Layout = () => {
@@ -48,12 +54,26 @@ function App() {
         <Route path="/admin/d-approval" element={<DepartmentApprovalPage />} />
         <Route path="/admin/reminder" element={<ReminderPage />} />
         <Route path="/admin/tasks" element={<TaskDetails />} />
-
+      </Route>
+      <Route path="/document" element={<Dashboard />}>
+        <Route path="/document/mail" element={<MailFormats />} />
+      </Route>
+      <Route path="/reporting" element={<Dashboard />}>
+        <Route path="/reporting/model" element={<ReportsModelPage />} />
+      </Route>
+      <Route path="/lead" element={<Dashboard />}>
+        <Route path="/lead/feedback" element={<LeadFeedback />} />
+        <Route path="/lead/complaint" element={<LeadComplaints />} />
+        <Route path="/lead/suggestion" element={<LeadSuggestion />} />
+      </Route>
+      <Route path="/sales" element={<Dashboard />}>
+        <Route path="/sales/leads" element={<SalesLeadPage />} />
       </Route>
       <Route path="/training" element={<Dashboard />}>
         <Route path="/training/documents" element={<DocumentPage />} />
         <Route path="/training/quiz" element={<QuizPage />} />
       </Route>
+
       <Route path="/trial" element={<Pdfme />} />
     </Routes>
   );

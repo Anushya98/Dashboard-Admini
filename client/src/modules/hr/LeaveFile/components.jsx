@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const FormLabelComponent = ({ label, children }) => (
   <div className="flex items-center">
@@ -31,13 +32,24 @@ export const ImageComponent = ({ label, children }) => (
     {children}
   </div>
 );
+export const RadioComponent = ({ value, label, isCreateNewReportPage }) => {
+  const textSize = isCreateNewReportPage ? "text-xs" : "text-sm";
 
-export const RadioComponent = ({ value, label }) => (
+  return (
+    <FormItem className="flex items-center space-x-3 space-y-0">
+      <FormControl>
+        <RadioGroupItem value={value} />
+      </FormControl>
+      <FormLabel className={`font-normal ${textSize}`}>{label}</FormLabel>
+    </FormItem>
+  );
+};
+export const CheckboxComponent = ({ value, label }) => (
   <FormItem className="flex items-center space-x-3 space-y-0">
     <FormControl>
-      <RadioGroupItem value={value} />
+      <Checkbox value={value} />
     </FormControl>
-    <FormLabel className="font-normal">{label}</FormLabel>
+    <FormLabel className="font-normal text-xs">{label}</FormLabel>
   </FormItem>
 );
 

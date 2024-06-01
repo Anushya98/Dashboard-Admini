@@ -28,6 +28,8 @@ import CreateNewUserButton from "@/components/new-user-btn.jsx";
 import CreateNewTaskButton from "./new-task-task";
 import CreateTask from "@/modules/admin/Tasks/CreateTask";
 import CreateQuiz from "@/modules/Training/Quizzes/CreateNewQuiz";
+import ReportsModelPage from "@/modules/Reports/Models/ReportingModel";
+import ModelCreate from "@/modules/Reports/Models/CreateNew";
 
 const fuzzyFilter = (row, columnId, value) => {
   const itemRank = rankItem(row.getValue(columnId), value);
@@ -49,6 +51,9 @@ export default function DataTable({
   isNewUserPage = false,
   isNewTaskPage = false,
   isCreateNewQuiz = false,
+  isCreateNewReport = false,
+  isLeadPage = false,
+  onRowClick,
 }) {
   const [sorting, setSorting] = useState([]);
   const [pagination, setPagination] = useState({
@@ -59,6 +64,7 @@ export default function DataTable({
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedRowId, setSelectedRowId] = useState(null); // State to track selected row
 
   const applyLeaveButton =
     inputType === "search" && isLeavePage && (
@@ -111,6 +117,33 @@ export default function DataTable({
         <CreateQuiz isOpen={isOpen} setIsOpen={setIsOpen} />
       </>
     );
+  const CreateNewReport =
+    isCreateNewReport && (
+      <>
+        <Button
+          variant="primary"
+          className="bg-white text-darkBlue rounded-3xl border border-blue-500"
+          onClick={() => setIsOpen(true)}
+        >
+          + Create New Model
+        </Button>
+        <ModelCreate isOpen={isOpen} setIsOpen={setIsOpen} />
+      </>
+    );
+
+    const createNewLeadButton  =
+    inputType === "search" && isLeadPage && (
+      <>
+        <Button
+          variant="primary"
+          className="bg-white text-darkBlue rounded-3xl border border-blue-500"
+          onClick={() => setIsOpen(true)}
+        >
+          + Create New Lead
+        </Button>
+        {/* <ApplyLeaveForm isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+      </>
+    );
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -140,8 +173,17 @@ export default function DataTable({
     },
   });
 
+  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
+
+  const handleRowClick = (index, row) => {
+    setSelectedRowIndex(index);
+    onRowClick(row);
+  };
+  // const handleRowClick = (row) => {
+  //   setSelectedRowId(row.id); 
+
   return (
-    <section className="border bg-white rounded-2xl" style={{ alignSelf: "center" }}>
+    <section className="border bg-white rounded-2xl">
       {showControlHeader && (
         <div className="flex items-center justify-between py-3 px-[2rem] bg-darkBlue rounded-2xl rounded-b-none">
           <p className="text-white font-medium">{heading}</p>
@@ -152,6 +194,8 @@ export default function DataTable({
             {createNewUserButton}
             {createNewTaskButton}
             {CreateNewQuiz}
+            {CreateNewReport}
+            {createNewLeadButton}
             {inputType === "search" && (
               <SearchInput value={globalFilter ?? ""} onSearch={(value) => setGlobalFilter(String(value))} />
             )}
@@ -183,8 +227,13 @@ export default function DataTable({
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+            table.getRowModel().rows.map((row, index) => (
+              <TableRow
+                key={row.id}
+                onClick={() => handleRowClick(index, row.original)}
+                className={selectedRowIndex === index ? 'bg-customBlue' : ''}
+                style={{ cursor: "pointer" }}
+              >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

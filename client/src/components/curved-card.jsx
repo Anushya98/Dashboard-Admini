@@ -1,6 +1,6 @@
 import { ArrowUp, ArrowDown } from "lucide-react";
 
-function CurvedCard({ icon, title, count, isLeavesPage, isDashboardPage, percentageChange, percentageText }) {
+function CurvedCard({ icon, title, count, isLeavesPage, isDashboardPage, percentageChange, percentageText, isComplaintPage, percentageChanges, previous }) {
   const isPositiveChange = percentageChange > 0;
   const ArrowIcon = isPositiveChange ? ArrowUp : ArrowDown; // Capitalized the variable to use it as a component
   const textColorClass = isPositiveChange ? "text-green-500" : "text-red-500";
@@ -25,7 +25,7 @@ function CurvedCard({ icon, title, count, isLeavesPage, isDashboardPage, percent
                 {count} {isLeavesPage && "Number of Days"}
               </p>
               {isDashboardPage && (
-                <div className="flex items-center ml-2">
+                <div className="flex items-center ml-2 ">
                   <ArrowIcon className={`h-4 w-4 ${textColorClass}`} />
                   <span className={`text-xs ${textColorClass} ml-1`}>{(percentageChange * 100).toFixed(2)}%</span>
                 </div>
@@ -36,6 +36,12 @@ function CurvedCard({ icon, title, count, isLeavesPage, isDashboardPage, percent
           {isDashboardPage && (
             <div className="mt-1 text-xs">
               {percentageText}
+            </div>
+          )}
+          {isComplaintPage && (
+            <div className="flex items-center mt-1 text-xs justify-center">
+              <span>Previous {previous} | % Change {percentageChanges} | </span>
+              <ArrowIcon className={`h-4 w-4 ml-1 ${textColorClass}`} />
             </div>
           )}
         </div>
