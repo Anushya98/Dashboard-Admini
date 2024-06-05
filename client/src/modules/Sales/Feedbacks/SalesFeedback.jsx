@@ -1,4 +1,4 @@
-import { useLeadSuggest } from "./useleadSuggest";
+import { useSalesFeedback } from "./useSalesFeedback";
 import { useState } from "react";
 import { useEffect } from "react";
 import CurvedCard from "@/components/curved-card";
@@ -9,8 +9,8 @@ import Positive from "@/assets/icons/feedback.svg"
 import Negative from "@/assets/icons/positive feedback.svg"
 import UnAttended from "@/assets/icons/rejected-suggestion.svg"
 
-function LeadSuggestion() {
-    const { columns, complaintsData } = useLeadSuggest();
+function SalesFeedback() {
+    const { columns, complaintsData } = useSalesFeedback();
     const [isOpen, setIsOpen] = useState(true); // Open by default
     const [currentRow, setCurrentRow] = useState(null); // Default to null
 
@@ -29,30 +29,37 @@ function LeadSuggestion() {
         <section className="flex flex-col gap-4 px-2 mb-4">
             <div className="flex w-full justify-between gap-2">
                 <CurvedCard
-                    icon={Positive}
-                    title="Total Suggestions"
+                    icon={FeedBacks}
+                    title="Total Feedback"
                     count={complaintsData.total_employees}
                     isComplaintPage={true}
                     previous={2}
                     percentageChanges={15}
                 />
                 <CurvedCard
-                    icon={Negative}
-                    title="Suggestions Considered"
+                    icon={Positive}
+                    title="Positive Feedbacks"
                     count={complaintsData.total_complaints_count}
                     isComplaintPage={true}
                     previous={2}
                     percentageChanges={15}
                 />
                 <CurvedCard
-                    icon={UnAttended}
-                    title="Suggestions rejected"
+                    icon={Negative}
+                    title="Negative Feedbacks"
                     count={complaintsData.solved_complaints_count}
                     isComplaintPage={true}
                     previous={2}
                     percentageChanges={15}
                 />
-
+                <CurvedCard
+                    icon={UnAttended}
+                    title="UnAttended Feedback"
+                    count={complaintsData.pending_complaints_count}
+                    isComplaintPage={true}
+                    previous={2}
+                    percentageChanges={15}
+                />
             </div>
             <div className="flex gap-4">
                 <div className="w-[60%]">
@@ -87,4 +94,4 @@ function LeadSuggestion() {
     );
 }
 
-export default LeadSuggestion;
+export default SalesFeedback;

@@ -1,35 +1,15 @@
-import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { formatDate } from "@/lib/date-format";
 import { handleRequest } from "@/lib/services";
-import useFetch from "@/hooks/useFetch";
-import { commonAPI } from "@/lib/services";
+import { setUpHeaders } from "@/lib/utils";
 
 export function useComplaints() {
-    // const [complaintsData, setComplaintsData] = useState({});
-    const [currentRow, setCurrentRow] = useState(null);
-    const [isOpen, setIsOpen] = useState(true);
-
-    useEffect(() => {
-        const fetchComplaints = async () => {
-            try {
-                const loginToken = localStorage.getItem("accessToken");
-                const headers = {
-                    Authorization: `Bearer ${loginToken}`,
-                };
-                const { data } = await commonAPI("hrcomplaints", "GET", {}, headers);
-                setComplaintsData(data);
-                if (data.hr_complaints.length > 0) {
-                    setCurrentRow(data.hr_complaints[0]); // Initialize with the first complaint
-                }
-            } catch (err) {
-                console.log(err.message);
-            }
-        };
-        fetchComplaints();
-    }, []);
+  const [complaintsData, setComplaintsData] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentRow, setCurrentRow] = useState();
 
   const columns = [
     {
@@ -105,8 +85,24 @@ export function useComplaints() {
     },
   ];
 
-  const { data, loading } = useFetch("hrcomplaints", true);
-  const complaintsData = loading ? [] : data;
+  const headers = setUpHeaders();
+
+  useEffect(() => {
+    const fetchComplaints = async () => {
+      await handleRequest(
+        "hrcomplaints",
+        "GET",
+        null,
+        null,
+        null,
+        (response) => {
+          setComplaintsData(response.data);
+        },
+        headers
+      );
+    };
+    fetchComplaints();
+  }, []);
 
   const registerComplaint = async (data) =>
     await handleRequest(
@@ -118,7 +114,7 @@ export function useComplaints() {
       (response) => {
         console.log(response.data);
       },
-      true
+      headers
     );
   // registerComplaint({
   //   name: "akshay",
@@ -137,7 +133,7 @@ export function useComplaints() {
       (response) => {
         console.log(response.data);
       },
-      true
+      headers
     );
   // registerResponse({
   //   complaint_id: "HRCMP_7",response_message:"asdfsdfs asdfsdf"

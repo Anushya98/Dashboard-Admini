@@ -37,11 +37,11 @@ const data = {
     ],
 };
 
-export default function DoughnutComponent({ heading }) {
+export default function DoughnutComponent({ heading, label }) {
     return (
         <section className="border bg-white rounded-2xl">
             <div className="flex items-center justify-between py-3 px-[2rem] bg-darkBlue rounded-2xl rounded-b-none">
-                <p className="text-white font-medium">Employement Status</p>
+                <p className="text-white font-medium">{label}</p>
             </div>
             <div className="flex flex-col justify-center items-center w-full h-full py-6">
                 <div className="w-[150px] h-[150px]">

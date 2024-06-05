@@ -131,6 +131,20 @@ function Sidebar({ children }) {
                   </span>
                 </TabsTrigger>
                 <TabsTrigger
+                  value="hr/suggestion"
+                  onClick={() => {
+                    setActivePage("hr/suggestion");
+                    navigate("/hr/suggestion");
+                  }}
+                  className="relative flex items-center pl-4 py-2 hover:bg-gray-100 hover:text-darkBlue"
+                >
+                  {/* <FaCommentDots className="mr-2" /> */}
+                  <span className="relative">
+                    Suggestions
+                    <span className="absolute left-[-44px] top-1/2 transform -translate-y-1/2 w-8 h-px bg-gray-200"></span>
+                  </span>
+                </TabsTrigger>
+                <TabsTrigger
                   value="hr/welfare"
                   onClick={() => {
                     setActivePage("hr/welfare");

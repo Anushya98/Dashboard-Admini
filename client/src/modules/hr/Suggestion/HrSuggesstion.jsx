@@ -1,4 +1,4 @@
-import { useLeadSuggest } from "./useleadSuggest";
+import { useHrSuggest } from "./usehrSuggest";
 import { useState } from "react";
 import { useEffect } from "react";
 import CurvedCard from "@/components/curved-card";
@@ -9,8 +9,8 @@ import Positive from "@/assets/icons/feedback.svg"
 import Negative from "@/assets/icons/positive feedback.svg"
 import UnAttended from "@/assets/icons/rejected-suggestion.svg"
 
-function LeadSuggestion() {
-    const { columns, complaintsData } = useLeadSuggest();
+function HrSuggestion() {
+    const { columns, complaintsData } = useHrSuggest();
     const [isOpen, setIsOpen] = useState(true); // Open by default
     const [currentRow, setCurrentRow] = useState(null); // Default to null
 
@@ -87,4 +87,4 @@ function LeadSuggestion() {
     );
 }
 
-export default LeadSuggestion;
+export default HrSuggestion;

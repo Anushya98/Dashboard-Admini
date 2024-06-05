@@ -184,8 +184,8 @@ function Leaves() {
                     icon={OtherLeaveIcon}
                 />
             </div>
-            <div className="flex justify-between" style={{ gap: '10px' }}>
-                <div style={{ width: "70%" }}>
+            <div className="flex gap-4">
+                <div className="w-[70%]">
                     <Table
                         heading="Current Leave Application"
                         columns={columns}
@@ -195,8 +195,8 @@ function Leaves() {
 
                     />
                 </div>
-                <div className="col-span-1" >
-                    <div style={{ marginBottom: '10px' }}>
+                <div className="w-[30%]">
+                    <div className="mb-4">
                         <Table
                             // heading="Current Leave Application"
                             columns={columns1}

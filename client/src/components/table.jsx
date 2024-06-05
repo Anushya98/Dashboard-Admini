@@ -16,6 +16,7 @@ import {
 } from "@tanstack/react-table";
 import { rankItem } from "@tanstack/match-sorter-utils";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SearchInput from "@/components/search-input";
 import Calendar from "./calendar-month";
 import CalendarComponent from "./calendar-date";
@@ -52,6 +53,8 @@ export default function DataTable({
   isNewTaskPage = false,
   isCreateNewQuiz = false,
   isCreateNewReport = false,
+  isCreateNewList = false,
+  isCreateQuestionList = false,
   isLeadPage = false,
   onRowClick,
 }) {
@@ -65,6 +68,8 @@ export default function DataTable({
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState(null); // State to track selected row
+  const navigate = useNavigate();
+
 
   const applyLeaveButton =
     inputType === "search" && isLeavePage && (
@@ -130,8 +135,31 @@ export default function DataTable({
         <ModelCreate isOpen={isOpen} setIsOpen={setIsOpen} />
       </>
     );
+  const CreateNewList =
+    isCreateNewList && (
+      <>
+        <Button
+          variant="primary"
+          className="bg-white text-darkBlue rounded-3xl border border-blue-500"
+          onClick={() => navigate('/reporting/create-new-list')}
+        >
+          + Create New List
+        </Button>
+      </>
+    );
+  const CreateQuestionList = isCreateQuestionList && (
+    <>
+      <Button
+        variant="primary"
+        className="bg-white text-darkBlue rounded-3xl border border-blue-500"
+        onClick={() => navigate('/reporting/create-question-list')}
+      >
+        + Create Question List
+      </Button>
+    </>
+  );
 
-    const createNewLeadButton  =
+  const createNewLeadButton =
     inputType === "search" && isLeadPage && (
       <>
         <Button
@@ -199,6 +227,8 @@ export default function DataTable({
             {inputType === "search" && (
               <SearchInput value={globalFilter ?? ""} onSearch={(value) => setGlobalFilter(String(value))} />
             )}
+            {CreateNewList}
+            {CreateQuestionList}
           </div>
           {inputType === "calendar" && (
             <CalendarComponent

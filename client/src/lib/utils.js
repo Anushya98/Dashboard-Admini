@@ -9,6 +9,12 @@ export function prefixWith91(obj, propertyName) {
   if (obj && obj[propertyName]) obj[propertyName] = "91 " + obj[propertyName];
   return obj;
 }
+export function setUpHeaders() {
+  const loginToken = localStorage.getItem("accessToken");
+  return {
+    Authorization: `Bearer ${loginToken}`,
+  };
+}
 
 
 export function formatDate(dateString) {

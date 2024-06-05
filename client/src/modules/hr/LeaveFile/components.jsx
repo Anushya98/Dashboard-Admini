@@ -70,7 +70,8 @@ export const LeaveTypeRadio = ({ field }) => (
 );
 
 export const CalendarComponent = ({ field, isDateDisabled, label }) => (
-  <FormLabelComponent label={label}>
+  <div className="flex items-center">
+    <FormLabel className="min-w-[10rem]">{label}</FormLabel>
     <Popover>
       <PopoverTrigger asChild>
         <FormControl>
@@ -99,7 +100,7 @@ export const CalendarComponent = ({ field, isDateDisabled, label }) => (
         />
       </PopoverContent>
     </Popover>
-  </FormLabelComponent>
+  </div>
 );
 
 export const Header = () => (
@@ -200,6 +201,55 @@ export const SelectWorkType = ({ field }) => (
       <SelectContent>
         <SelectItem value="full-time">Full Time</SelectItem>
         <SelectItem value="part-time">Part Time</SelectItem>
+      </SelectContent>
+    </Select>
+  </FormLabelComponent>
+);
+export const SelectDepartment = ({ field }) => (
+  <FormLabelComponent label="Department" className="min-w-[5rem]">
+    <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <FormControl>
+        <SelectTrigger className="min-w-[10rem]">
+          <SelectValue placeholder="Select Type" />
+        </SelectTrigger>
+      </FormControl>
+      <SelectContent>
+        <SelectItem value="full-time">Full Time</SelectItem>
+        <SelectItem value="part-time">Part Time</SelectItem>
+      </SelectContent>
+    </Select>
+  </FormLabelComponent>
+);
+export const SelectDesignation = ({ field }) => (
+  <FormLabelComponent label="Designation" className="min-w-[5rem]">
+    <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <FormControl>
+        <SelectTrigger className="min-w-[10rem]">
+          <SelectValue placeholder="Select Type" />
+        </SelectTrigger>
+      </FormControl>
+      <SelectContent>
+        <SelectItem value="full-time">Full Time</SelectItem>
+        <SelectItem value="part-time">Part Time</SelectItem>
+      </SelectContent>
+    </Select>
+  </FormLabelComponent>
+);
+export const SelectBank = ({ field }) => (
+  <FormLabelComponent label="Bank Name" className="min-w-[5rem]">
+    <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <FormControl>
+        <SelectTrigger className="min-w-[10rem]">
+          <SelectValue placeholder="Select Type" />
+        </SelectTrigger>
+      </FormControl>
+      <SelectContent>
+        <SelectItem value="sbi">SBI</SelectItem>
+        <SelectItem value="hdfc">HDFC</SelectItem>
+        <SelectItem value="icici">ICICI</SelectItem>
+        <SelectItem value="tmb">TMB</SelectItem>
+        <SelectItem value="kotak">Kotak Mahendra</SelectItem>
+        <SelectItem value="sib">SIB</SelectItem>
       </SelectContent>
     </Select>
   </FormLabelComponent>

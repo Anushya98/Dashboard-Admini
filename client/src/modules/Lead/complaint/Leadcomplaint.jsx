@@ -4,6 +4,10 @@ import { useEffect } from "react";
 import CurvedCard from "@/components/curved-card";
 import Table from "@/components/table";
 import ComplaintComponent from "@/components/feedback";
+import FeedBacks from "@/assets/icons/users.svg"
+import Positive from "@/assets/icons/feedback.svg"
+import Negative from "@/assets/icons/positive feedback.svg"
+import UnAttended from "@/assets/icons/rejected-suggestion.svg"
 
 function LeadComplaints() {
     const { columns, complaintsData } = useLeadComplaints();
@@ -26,6 +30,7 @@ function LeadComplaints() {
         <section className="flex flex-col gap-4 px-2 mb-4">
             <div className="flex w-full justify-between gap-2">
                 <CurvedCard
+                    icon={FeedBacks}
                     title="Complaint unresolved over 10 days"
                     count={complaintsData.total_employees}
                     isComplaintPage={true}
@@ -33,6 +38,7 @@ function LeadComplaints() {
                     percentageChanges={15}
                 />
                 <CurvedCard
+                    icon={Positive}
                     title="Total Complaints"
                     count={complaintsData.total_complaints_count}
                     isComplaintPage={true}
@@ -40,6 +46,7 @@ function LeadComplaints() {
                     percentageChanges={15}
                 />
                 <CurvedCard
+                    icon={Negative}
                     title="Complaints Resolved"
                     count={complaintsData.solved_complaints_count}
                     isComplaintPage={true}
@@ -47,6 +54,7 @@ function LeadComplaints() {
                     percentageChanges={15}
                 />
                 <CurvedCard
+                    icon={UnAttended}
                     title="Pending Complaints"
                     count={complaintsData.pending_complaints_count}
                     isComplaintPage={true}

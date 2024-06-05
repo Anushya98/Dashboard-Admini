@@ -1,0 +1,112 @@
+.complaintPageContainer {
+  padding: 20px;
+}
+
+.contentContainer {
+  display: flex;
+}
+
+.leftColumn {
+  flex-basis: 70%;
+  margin-right: 20px;
+}
+
+.rightColumn {
+  flex-basis: 30%;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.complaintCard {
+  flex: 1;
+  width: calc(50% - 10px);
+  border-radius: 20px;
+  margin-top: 12px;
+}
+
+.searchContainer {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px;
+  /* Remove border */
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #94e5ff;
+  height: 40px;
+}
+
+.complaintDepartmentCard {
+  margin-top: 20px;
+}
+
+.complaintTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.complaintTable th,
+.complaintTable td {
+  margin: 10px;
+  padding: 8px;
+  width: 25px;
+  font-size: small;
+}
+.card {
+  flex: 1;
+  border-radius: 1px;
+  margin-top: -20px;
+  background-color: #94e5ff;
+  font-size: large;
+  border: 2px solid #94e5ff;
+  overflow: hidden;
+  box-shadow: 2px 2px 4px rgba(5, 5, 5, 0.1);
+  text-align: center;
+}
+.cd {
+  flex: 1;
+  border-radius: 15px;
+  margin-top: 12px;
+  font-size: small;
+  border: 2px solid rgb(235, 241, 243);
+  flex-wrap: wrap;
+  overflow: hidden;
+  box-shadow: 2px 2px 4px rgba(5, 5, 5, 0.1);
+  text-align: center;
+}
+.c {
+  flex: 1;
+  border-radius: 5px;
+  margin-top: 0px;
+  font-size: small;
+  border: 2px solid rgb(235, 241, 243);
+  flex-wrap: wrap;
+  overflow: hidden;
+  box-shadow: 2px 2px 4px rgba(5, 5, 5, 0.1);
+  text-align: center;
+}
+
+.circle {
+  padding: 13px 20px;
+  border-radius: 50%;
+  background-color: #ed8d8d;
+  color: #fff;
+  max-height: 50px;
+  z-index: 2;
+}
+
+.howItWorksRow .col-2 {
+  align-self: stretch;
+}
+
+.howItWorksRow .col-2::after {
+  content: "";
+  position: absolute;
+  border-left: 3px solid #ed8d8d;
+  z-index: 1;
+}
