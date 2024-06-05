@@ -192,7 +192,7 @@ export default function UploadForm({ isOpen, setIsOpen }) {
             onOpenChange={() => setIsOpen(!isOpen)}
         >
             <DialogContent
-                className="p-0 border-none w-[max-content]"
+                className="p-0 border-none w-[max-content] max-h-[80vh] overflow-hidden"
                 onInteractOutside={(e) => e.preventDefault()}
                 onOpenAutoFocus={(e) => e.preventDefault()}
             >
@@ -206,136 +206,138 @@ export default function UploadForm({ isOpen, setIsOpen }) {
                         <img src={CancelIcon} alt="cancel" className="w-6 h-6" />
                     </Button>
                 </div>
-                <Form onSubmit={form.handleSubmit(handleSubmit)} form={form} className="flex flex-col gap-4">
-                    <div className="flex justify-between items-center gap-8">
-                        <div className="flex flex-col w-[100%]">
-                            <FormField
-                                control={form.control}
-                                name="task_image"
-                                rules={{ required: { value: true, message: "This is required*" } }}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <div className="flex flex-col items-center w-full">
-                                            {/* <FormLabel className="min-w-[10rem]">Task Image</FormLabel> */}
-                                            <div
-                                                className={`border border-gray-300 rounded px-8 py-8 cursor-pointer w-full h-[150px] ${isDragging ? 'bg-gray-100' : ''}`}
-                                                onDragOver={handleDragOver}
-                                                onDragLeave={handleDragLeave}
-                                                onDrop={handleDrop}
-                                            >
-                                                <input
-                                                    type="file"
-                                                    id="task_image"
-                                                    accept="*"
-                                                    className="hidden"
-                                                    onChange={(e) => handleFileUpload(e.target.files)}
-                                                    multiple
-                                                />
-                                                <label htmlFor="task_image" className="file-input-label flex flex-col items-center justify-center h-full">
-                                                    {selectedFiles.length > 0 ? (
-                                                        <ul className="w-full">
-                                                            {selectedFiles.map((file, index) => (
-                                                                <li key={index} className="flex justify-between items-center">
-                                                                    <span>{file.name}</span>
-                                                                    <Button variant="ghost" size="icon" onClick={() => handleDeleteFile(file)}>
-                                                                        <img src={CancelIcon} alt="delete" className="w-4" />
-                                                                    </Button>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    ) : (
-                                                        <>
-                                                            <img src={ImageIcon} alt="image" className="w-12 mt-2" />
-                                                            <span>Drag and drop file here or upload</span>
-                                                        </>
-                                                    )}
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
-                        <div className="flex flex-col justify-between items-start gap-8">
-                            <FormField
-                                control={form.control}
-                                name="task_name"
-                                rules={{ required: { value: true, message: "This is required*" } }}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabelComponent label="Document Name">
-                                            <Input {...field} placeholder="Add Document Name Here" />
-                                        </FormLabelComponent>
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="reminder_type"
-                                rules={{ required: { value: true, message: "This is required*" } }}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <SelectReminder field={field} />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="document_model"
-                                rules={{ required: { value: true, message: "This is required*" } }}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabelComponent label="Document Model">
-                                            <FormControl>
-                                                <RadioGroup
-                                                    onValueChange={field.onChange}
-                                                    defaultValue={field.value}
-                                                    className="flex space-y-1 grow"
+                <div className="p-4 overflow-auto max-h-[calc(80vh-64px)]">
+                    <Form onSubmit={form.handleSubmit(handleSubmit)} form={form} className="flex flex-col gap-4">
+                        <div className="flex justify-between items-center gap-8">
+                            <div className="flex flex-col w-[100%]">
+                                <FormField
+                                    control={form.control}
+                                    name="task_image"
+                                    rules={{ required: { value: true, message: "This is required*" } }}
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <div className="flex flex-col items-center w-full">
+                                                {/* <FormLabel className="min-w-[10rem]">Task Image</FormLabel> */}
+                                                <div
+                                                    className={`border border-gray-300 rounded px-8 py-8 cursor-pointer w-full h-[150px] ${isDragging ? 'bg-gray-100' : ''}`}
+                                                    onDragOver={handleDragOver}
+                                                    onDragLeave={handleDragLeave}
+                                                    onDrop={handleDrop}
                                                 >
-                                                    <RadioComponent value="tit-bits" label="Tit Bits" />
-                                                    <RadioComponent value="doubts" label="Doubts" />
-                                                    <RadioComponent value="quiz" label="Quiz" />
-                                                </RadioGroup>
-                                            </FormControl>
-                                        </FormLabelComponent>
-                                    </FormItem>
-                                )}
-                            />
+                                                    <input
+                                                        type="file"
+                                                        id="task_image"
+                                                        accept="*"
+                                                        className="hidden"
+                                                        onChange={(e) => handleFileUpload(e.target.files)}
+                                                        multiple
+                                                    />
+                                                    <label htmlFor="task_image" className="file-input-label flex flex-col items-center justify-center h-full">
+                                                        {selectedFiles.length > 0 ? (
+                                                            <ul className="w-full">
+                                                                {selectedFiles.map((file, index) => (
+                                                                    <li key={index} className="flex justify-between items-center">
+                                                                        <span>{file.name}</span>
+                                                                        <Button variant="ghost" size="icon" onClick={() => handleDeleteFile(file)}>
+                                                                            <img src={CancelIcon} alt="delete" className="w-4" />
+                                                                        </Button>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        ) : (
+                                                            <>
+                                                                <img src={ImageIcon} alt="image" className="w-12 mt-2" />
+                                                                <span>Drag and drop file here or upload</span>
+                                                            </>
+                                                        )}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                            <div className="flex flex-col justify-between items-start gap-8">
+                                <FormField
+                                    control={form.control}
+                                    name="task_name"
+                                    rules={{ required: { value: true, message: "This is required*" } }}
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabelComponent label="Document Name">
+                                                <Input {...field} placeholder="Add Document Name Here" />
+                                            </FormLabelComponent>
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="reminder_type"
+                                    rules={{ required: { value: true, message: "This is required*" } }}
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <SelectReminder field={field} />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="document_model"
+                                    rules={{ required: { value: true, message: "This is required*" } }}
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabelComponent label="Document Model">
+                                                <FormControl>
+                                                    <RadioGroup
+                                                        onValueChange={field.onChange}
+                                                        defaultValue={field.value}
+                                                        className="flex space-y-1 grow"
+                                                    >
+                                                        <RadioComponent value="tit-bits" label="Tit Bits" />
+                                                        <RadioComponent value="doubts" label="Doubts" />
+                                                        <RadioComponent value="quiz" label="Quiz" />
+                                                    </RadioGroup>
+                                                </FormControl>
+                                            </FormLabelComponent>
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex gap-4">
-                        <div style={{ width: '50%' }}>
-                            <Table
-                                heading="Employees to be trained"
-                                columns={columns}
-                                data={leavesData.hr_complaints}
-                            />
+                        <div className="flex gap-4">
+                            <div style={{ width: '50%' }}>
+                                <Table
+                                    heading="Employees to be trained"
+                                    columns={columns}
+                                    data={leavesData.hr_complaints}
+                                />
+                            </div>
+                            <div style={{ width: '50%' }}>
+                                <Table
+                                    heading="Employees Added"
+                                    columns={columns1}
+                                    data={leavesData.hr_complaints}
+                                />
+                            </div>
                         </div>
-                        <div style={{ width: '50%' }}>
-                            <Table
-                                heading="Employees Added"
-                                columns={columns1}
-                                data={leavesData.hr_complaints}
-                            />
-                        </div>
-                    </div>
-                    <div className="flex justify-center gap-8 p-4">
-                        <Button
-                            type="submit"
-                            className="bg-darkBlue text-white rounded-3xl border-white hover:bg-white hover:border-darkBlue hover:text-darkBlue "
-                            variant="outline">
-                            Save
-                        </Button>
-                        <Button
-                            type="button"
-                            className="border-darkBlue rounded-3xl text-darkBlue hover:bg-darkBlue hover:border-white hover:text-white"
-                            variant="outline"
+                        <div className="flex justify-center gap-8 p-4">
+                            <Button
+                                type="submit"
+                                className="bg-darkBlue text-white rounded-3xl border-white hover:bg-white hover:border-darkBlue hover:text-darkBlue "
+                                variant="outline">
+                                Save
+                            </Button>
+                            <Button
+                                type="button"
+                                className="border-darkBlue rounded-3xl text-darkBlue hover:bg-darkBlue hover:border-white hover:text-white"
+                                variant="outline"
                             // onClick={() => setIsOpen(false)}
-                        >
-                            Save As Draft
-                        </Button>
-                    </div>
-                </Form>
+                            >
+                                Save As Draft
+                            </Button>
+                        </div>
+                    </Form>
+                </div>
             </DialogContent>
         </Dialog>
     );
